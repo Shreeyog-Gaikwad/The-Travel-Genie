@@ -36,6 +36,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "router": {
+      "routes": [
+        {
+          "name": "GetStarted",
+          "path": "/components/GetStarted"
+        },
+        {
+          "name": "Login",
+          "path": "auth/Login"
+        }
+      ]
     }
   }
 }
