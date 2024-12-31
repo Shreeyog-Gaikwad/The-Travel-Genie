@@ -1,8 +1,10 @@
+import 'react-native-get-random-values';
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import GetStarted from "../components/GetStarted";
 import { auth } from "../config/FirebaseConfig";
 import { useRouter } from "expo-router";
+
 
 export default function Index() {
   const router = useRouter();

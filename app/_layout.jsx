@@ -1,5 +1,7 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import { CreateTripContext } from "../context/TripContext";
+import { useState } from "react";
 
 export default function RootLayout() {
   useFonts({
@@ -12,11 +14,14 @@ export default function RootLayout() {
     'playfairDisplay-italic': require('../assets/fonts/PlayfairDisplay-Italic.ttf'),
   });
 
+  const [tripData, setTripData] = useState([]);
   return (
-    // <Stack screenOptions={{headerShown:false}}>
+    <CreateTripContext.Provider value={{tripData, setTripData}}>
+    {/* // <Stack screenOptions={{headerShown:false}}>
     //   {/* <Stack.Screen name="index" options={{ headerShown: false }} />  */}
-    //   <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> 
-    // </Stack>
-    <Stack screenOptions={{headerShown:false}}/>
+   {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> 
+    // </Stack> */}
+      <Stack screenOptions={{headerShown:false}}/>
+    </CreateTripContext.Provider>
   );
 }  
