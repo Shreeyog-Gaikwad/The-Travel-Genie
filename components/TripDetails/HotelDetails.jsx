@@ -1,7 +1,5 @@
 import { FlatList, StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect } from "react";
-import { GetPhotoref } from "../../services/GooglePlaceApi";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import React from "react";
 import HotelCard from "./HotelCard";
 
 const HotelDetails = ({ hotels }) => {
@@ -9,15 +7,14 @@ const HotelDetails = ({ hotels }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Hotel Details <FontAwesome5 name="hotel" size={20} color="black" />
-      </Text>
+        Hotel Details 🛎️</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         nestedScrollEnabled
         data={hotels}
         horizontal={true}
         renderItem={({ item, index }) => (
-          <HotelCard item = {item} index = {index} />
+          <HotelCard item={item} index={index} />
         )}
       />
     </View>

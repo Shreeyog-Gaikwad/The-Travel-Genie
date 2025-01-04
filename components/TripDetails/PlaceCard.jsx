@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image , TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, Image , TouchableOpacity, Linking} from 'react-native'
 import React, { useEffect, useState } from "react";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { GetPhotoref } from "../../services/GooglePlaceApi";
@@ -17,6 +17,11 @@ const PlaceCard = ({place}) => {
         const result = await GetPhotoref(place?.placeName)
         setPhotoRef(result)
       }
+
+      const openMap = (latitude, longitude) => {
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+        Linking.openURL(url).catch((err) => console.error("Failed to open maps: ", err));
+      };
 
   return (
     <View  style={styles.info}>
@@ -50,7 +55,7 @@ export default PlaceCard
 const styles = StyleSheet.create({
     info: {
         padding: 10,
-        backgroundColor: '#EAF0F1',
+        backgroundColor: '#f0f0f0',
         borderRadius: 15,
         marginBottom: 10
       },

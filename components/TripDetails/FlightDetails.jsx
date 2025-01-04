@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View , TouchableOpacity, ScrollView, Linking} from 'react-native'
 import React from 'react'
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 const FlightDetails = ({flights}) => {
 
@@ -17,7 +16,7 @@ const FlightDetails = ({flights}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Flight Details  <FontAwesome5 name="plane" size={20} color="black" /></Text>
+      <Text style={styles.title}>Flight Details ✈️</Text>
       <ScrollView style={styles.flightDetails} horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={styles.info}>
             <Text style={[styles.infoTitle, {color: '#43BE31'}]}>Departure Details</Text>
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
         width : '100%'
     },
     info : {
-        backgroundColor : '#EAF0F1',
+        backgroundColor : '#f0f0f0',
         padding: 20,
         borderRadius: 15,
         marginRight : 20,

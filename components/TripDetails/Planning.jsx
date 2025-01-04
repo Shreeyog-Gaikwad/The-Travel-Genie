@@ -1,17 +1,10 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native'
-import React, {useState, useEffect} from 'react'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { GetPhotoref } from "../../services/GooglePlaceApi";
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import PlaceCard from './PlaceCard';
-
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const Planning = ({ plans }) => {
-  
-  const openMap = (latitude, longitude) => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-    Linking.openURL(url).catch((err) => console.error("Failed to open maps: ", err));
-  };
+  const [selectedDay, setSelectedDay] = useState(null); // State to keep track of selected day
 
   if (!plans || Object.keys(plans).length === 0) {
     return <Text>No itinerary details available</Text>;
@@ -19,21 +12,37 @@ const Planning = ({ plans }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Plan Details  <MaterialIcons name="nature-people" size={24} color="black" /></Text>
+      <Text style={styles.title}>Day-wise Planner 🗓️</Text>
 
-      {Object.entries(plans).reverse().map(([day, details]) => (
-        <View key={day}>
-          <Text style={styles.day}>{day.charAt(0).toUpperCase() + day.slice(1)}</Text>
-          {details.schedule.map((place, index) => (
-            <PlaceCard place={place} index={index} />
-          ))}
-        </View>
-      ))}
+      {Object.entries(plans)
+        .sort(([dayA], [dayB]) => dayA.localeCompare(dayB))
+        .map(([day, details]) => (
+          <View key={day}>
+
+            <TouchableOpacity
+              style={selectedDay == day ? styles.selected : styles.unselected}
+              onPress={() => setSelectedDay(selectedDay === day ? null : day)}
+            >
+              <View style={styles.day}>
+                <Text style={styles.dayTxt}>{day.charAt(0).toUpperCase() + day.slice(1)}</Text> 
+                <Text style={styles.dayArrow}>{selectedDay === day ? <AntDesign name="caretdown" size={15} color="black" /> : <AntDesign name="caretup" size={15} color="black" />}</Text>
+              </View>
+            </TouchableOpacity>
+
+            {selectedDay === day && (
+              <View>
+                {details.schedule.map((place, index) => (
+                  <PlaceCard place={place} key={index} />
+                ))}
+              </View>
+            )}
+          </View>
+        ))}
     </View>
-  )
-}
+  );
+};
 
-export default Planning
+export default Planning;
 
 const styles = StyleSheet.create({
   container: {
@@ -42,15 +51,44 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: "outfit-medium",
+    fontFamily: 'outfit-medium',
     paddingBottom: 10,
     paddingLeft: 5,
   },
+  unselected: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    paddingHorizontal : 20,
+    borderRadius: 5,
+    marginVertical: 5,
+    borderRadius: 20
+  },
   day: {
     fontSize: 18,
-    fontFamily: "outfit-medium",
-    paddingLeft: 5,
-    paddingVertical: 10
-  },
+    fontFamily: 'outfit-medium',
+    display : 'flex',
+    flexDirection: 'row',
+    justifyContent : 'space-between',
+    alignItems : 'center',
+    gap : 10
   
-})
+  },
+  dayArrow : {
+    fontSize: 18,
+    fontFamily: 'outfit-medium',
+  },
+  dayTxt : {
+    fontSize: 18,
+    fontFamily: 'outfit-medium',
+  },
+  selected: {
+    backgroundColor: '#A4B0BD',
+    padding: 10,
+    paddingHorizontal : 20,
+    borderRadius: 5,
+    marginVertical: 5,
+    borderRadius: 20,
+    marginBottom : 20
+  },
+});
+

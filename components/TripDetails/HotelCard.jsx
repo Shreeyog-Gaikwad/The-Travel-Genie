@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         padding: 7,
         borderRadius: 15,
-        backgroundColor: "#EAF0F1",
+        backgroundColor: "#f0f0f0",
       },
       itemImg: {
         width: 150,
