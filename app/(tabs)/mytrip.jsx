@@ -1,16 +1,41 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import NoTripsScreen from "../../components/MyTrips/NoTripsScreen";
 import { useRouter } from "expo-router";
+import { auth, db } from "../../config/FirebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import UserTripList from '../../components/MyTrips/UserTripList'
 
 const MyTrip = () => {
   const [userTrips, setUserTrips] = useState([]);
   const router = useRouter();
+  const user = auth.currentUser;
+  const[loading,setLoading] =useState(false)
+
+  useEffect(()=>{
+    user && GetUserTrips();
+  },[user])
+
+  const GetUserTrips = async () => {
+    setLoading(true);
+    setUserTrips([]);
+    const q = query(
+      collection(db, "UserTrips"),
+      where("userEmail", "==", user?.email)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      setUserTrips(prev=>[...prev, doc.data()]);
+    });
+    setLoading(false);
+  };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style="dark" translucent={true} />
       <View style={styles.title}>
         <Text style={styles.titleText}>My Trips</Text>
@@ -21,9 +46,11 @@ const MyTrip = () => {
           <MaterialIcons name="add-location-alt" size={30} color="black" />
         </TouchableOpacity>
       </View>
+      
+        {loading && <ActivityIndicator size="large" color="black" />}
+        {userTrips.length === 0 ? <NoTripsScreen /> : <UserTripList userTrips={userTrips}/>}
 
-      {userTrips.length === 0 ? <NoTripsScreen /> : <Text>Null</Text>}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -48,6 +75,9 @@ const styles = StyleSheet.create({
   addButton: {
     padding: 5, // Controls spacing around the icon
   },
+  trips: {
+
+  }
 });
 
 export default MyTrip;
