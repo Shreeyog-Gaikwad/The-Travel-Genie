@@ -49,7 +49,7 @@ const TripDetails = () => {
                 <Text style={styles.info}>{moment(formatData(tripDetails?.tripdata)?.startDate).format('DD MMM YYYY')} - </Text>
                 <Text style={styles.info}>{moment(formatData(tripDetails?.tripdata)?.endDate).format('DD MMM YYYY')}</Text>
             </View>
-            <Text style={styles.info}>{formatData(tripDetails?.tripdata)?.Traveler?.icon}  {tripDetails?.tripPlan?.travelers}</Text>
+            <Text style={styles.info}>{formatData(tripDetails?.tripdata)?.Traveler?.icon}  {formatData(tripDetails?.tripdata)?.Traveler?.name}</Text>
         </View>
 
         <FlightDetails flights = {tripDetails?.tripPlan?.flights}/>

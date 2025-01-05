@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router'
 
 const UserTripList = ({userTrips}) => {
 
-  const LatestTrip = JSON.parse(userTrips[0].tripdata)
+  const LatestTrip = JSON.parse(userTrips[userTrips.length - 1].tripdata)
   const router = useRouter();
 
   return (
@@ -18,20 +18,25 @@ const UserTripList = ({userTrips}) => {
         <Image source={require('../../assets/images/LoginImage.jpg')} style={styles.firstImg} /> }
 
         <View style={styles.firstView}>
-            <Text style={styles.title}>{userTrips[0]?.tripPlan?.location}</Text>
+            <Text style={styles.title}>{userTrips[userTrips.length - 1]?.tripPlan?.location}</Text>
             <Text style={styles.info}>{moment(LatestTrip.startDate).format('DD MMM YYYY')}       ✈️ {LatestTrip?.Traveler?.name}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={()=>router.push({pathname:'/TripDetails', params:{
-          trip: JSON.stringify(userTrips[0])
+          trip: JSON.stringify(userTrips[userTrips.length - 1])
         }})}>
           <Text style={styles.btntxt}>See your Plan</Text>
         </TouchableOpacity>
       </View>
 
-      {userTrips.map((trips,index)=>(
+      {/* slice()->makes a duplicatecopy of usertrips array. 
+      ffilter() -> filters out the last element in the array and removes it
+      reverse() -> reverses the array
+      map() -> maps the array to the desired component */}
+
+      {userTrips.slice().filter((_, index) => index !== userTrips.length - 1).reverse().map((trips,index)=>(
           <UserTripCard  key={trips.docId || index} trip={trips} />
       ))}
-
+ 
      
     </View>
   )

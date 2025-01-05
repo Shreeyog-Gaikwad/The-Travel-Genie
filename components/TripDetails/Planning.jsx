@@ -41,13 +41,14 @@ const Planning = ({ plans }) => {
     </View>
   );
 };
-
+ 
 export default Planning;
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     marginTop: 20,
+    marginBottom: 30
   },
   title: {
     fontSize: 20,
