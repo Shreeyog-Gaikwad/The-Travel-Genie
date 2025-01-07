@@ -10,22 +10,32 @@ const Planning = ({ plans }) => {
     return <Text>No itinerary details available</Text>;
   }
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Day-wise Planner 🗓️</Text>
 
       {Object.entries(plans)
-        .sort(([dayA], [dayB]) => dayA.localeCompare(dayB))
+        .sort(([dayA], [dayB]) => {
+          const numA = parseInt(dayA.replace('day', ''), 10);
+          const numB = parseInt(dayB.replace('day', ''), 10);
+          return numA - numB;
+        })
         .map(([day, details]) => (
           <View key={day}>
-
             <TouchableOpacity
-              style={selectedDay == day ? styles.selected : styles.unselected}
+              style={selectedDay === day ? styles.selected : styles.unselected}
               onPress={() => setSelectedDay(selectedDay === day ? null : day)}
             >
               <View style={styles.day}>
-                <Text style={styles.dayTxt}>{day.charAt(0).toUpperCase() + day.slice(1)}</Text> 
-                <Text style={styles.dayArrow}>{selectedDay === day ? <AntDesign name="caretdown" size={15} color="black" /> : <AntDesign name="caretup" size={15} color="black" />}</Text>
+                <Text style={styles.dayTxt}>{day.charAt(0).toUpperCase() + day.slice(1)}</Text>
+                <Text style={styles.dayArrow}>
+                  {selectedDay === day ? (
+                    <AntDesign name="caretdown" size={15} color="black" />
+                  ) : (
+                    <AntDesign name="caretup" size={15} color="black" />
+                  )}
+                </Text>
               </View>
             </TouchableOpacity>
 
@@ -38,10 +48,12 @@ const Planning = ({ plans }) => {
             )}
           </View>
         ))}
+
+
     </View>
   );
 };
- 
+
 export default Planning;
 
 const styles = StyleSheet.create({
@@ -59,7 +71,7 @@ const styles = StyleSheet.create({
   unselected: {
     backgroundColor: '#f0f0f0',
     padding: 10,
-    paddingHorizontal : 20,
+    paddingHorizontal: 20,
     borderRadius: 5,
     marginVertical: 5,
     borderRadius: 20
@@ -67,29 +79,29 @@ const styles = StyleSheet.create({
   day: {
     fontSize: 18,
     fontFamily: 'outfit-medium',
-    display : 'flex',
+    display: 'flex',
     flexDirection: 'row',
-    justifyContent : 'space-between',
-    alignItems : 'center',
-    gap : 10
-  
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10
+
   },
-  dayArrow : {
+  dayArrow: {
     fontSize: 18,
     fontFamily: 'outfit-medium',
   },
-  dayTxt : {
+  dayTxt: {
     fontSize: 18,
     fontFamily: 'outfit-medium',
   },
   selected: {
     backgroundColor: '#A4B0BD',
     padding: 10,
-    paddingHorizontal : 20,
+    paddingHorizontal: 20,
     borderRadius: 5,
     marginVertical: 5,
     borderRadius: 20,
-    marginBottom : 20
+    marginBottom: 20
   },
 });
 
