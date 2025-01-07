@@ -1,7 +1,7 @@
 import "react-native-get-random-values";
 import { View, StyleSheet, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import GetStarted from "../components/GetStarted";
+import GetStarted from "./GetStarted";
 import { auth } from "../config/FirebaseConfig";
 import { useRouter } from "expo-router";
 
@@ -16,7 +16,7 @@ export default function Index() {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
-      setLoading(true);
+      setLoading(false);
       if (user) {
         router.replace("/mytrip"); 
       }

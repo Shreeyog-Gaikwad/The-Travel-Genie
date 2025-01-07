@@ -15,8 +15,10 @@ import { useNavigation, useRouter } from "expo-router";
 import Entypo from '@expo/vector-icons/Entypo';
 import Foundation from '@expo/vector-icons/Foundation';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import {auth} from "../../../config/FirebaseConfig"
+import { auth } from "../../../config/FirebaseConfig"
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
+
 
 export default function Login() {
   const navigation = useNavigation();
@@ -45,23 +47,26 @@ export default function Login() {
     };
   }, []);
 
-  const CreateAccount = () => {
-    if(!email && !password && !fullName){
+  const CreateAccount = async () => {
+    if (!email || !password || !fullName) {
       ToastAndroid.show("Please fill in all fields", ToastAndroid.SHORT);
+      return;
     }
-
-    createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    console.log(user);
-    router.replace('/mytrip');
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, ":",  errorMessage);
-  });
-  }
+  
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      await updateProfile(user, {
+        displayName: fullName,
+      });
+  
+      console.log("User created:", user);
+      router.replace('/mytrip');
+    } catch (error) {
+      console.error("Error creating account:", error.code, error.message);
+    }
+  };
 
   return (
     <KeyboardAvoidingView onPress={Keyboard.dismiss} style={{ flex: 1 }}
@@ -90,15 +95,15 @@ export default function Login() {
           <View style={styles.inputContainerWrapper}>
             <View style={styles.inputContainer}>
               <Text style={styles.inputContainerTxt}>Full Name</Text>
-              <TextInput style={styles.input} placeholder="Enter your Full Name" onChangeText={(value)=> setfullName(value)}/>
+              <TextInput style={styles.input} placeholder="Enter your Full Name" onChangeText={(value) => setfullName(value)} />
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.inputContainerTxt}>Email</Text>
-              <TextInput style={styles.input} placeholder="Enter your Email" onChangeText={(value)=> setEmail(value)}/>
+              <TextInput style={styles.input} placeholder="Enter your Email" onChangeText={(value) => setEmail(value)} />
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.inputContainerTxt}>Password</Text>
-              <TextInput style={styles.input} placeholder="Enter your Password" secureTextEntry={true} onChangeText={(value)=> setPassword(value)}/>
+              <TextInput style={styles.input} placeholder="Enter your Password" secureTextEntry={true} onChangeText={(value) => setPassword(value)} />
             </View>
             <TouchableOpacity style={styles.login} onPress={CreateAccount}>
               <Text style={styles.logintxt}>Create Account</Text>

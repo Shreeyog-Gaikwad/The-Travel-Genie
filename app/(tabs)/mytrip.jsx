@@ -16,6 +16,8 @@ const MyTrip = () => {
 
   useEffect(()=>{
     user && GetUserTrips();
+    console.log(user);
+    
   },[user])
 
   const GetUserTrips = async () => {
@@ -27,8 +29,7 @@ const MyTrip = () => {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+      //console.log(doc.id, " => ", doc.data());
       setUserTrips(prev=>[...prev, doc.data()]);
     });
     setLoading(false);
@@ -56,7 +57,7 @@ const MyTrip = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ensures the container fills the screen height
+    flex: 1,
     backgroundColor: "white",
     paddingTop: 50,
     paddingHorizontal: 30,
@@ -65,15 +66,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20, // Prevents space issues by adding some margin at the bottom
+    marginBottom: 20, 
   },
   titleText: {
     fontSize: 35,
     fontFamily: "outfit-bold",
-    marginRight: 10, // Gives some breathing room between text and button
+    marginRight: 10, 
   },
   addButton: {
-    padding: 5, // Controls spacing around the icon
+    padding: 5,
   },
   trips: {
 
