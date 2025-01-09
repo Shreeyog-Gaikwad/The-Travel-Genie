@@ -12,10 +12,10 @@ const _layout = () => {
       tabBarLabel:'My Trips',
       tabBarIcon:()=><Entypo name="location-pin" size={24} color="black" />
       }}/>
-    <Tabs.Screen name='discover' options={{
+    {/* <Tabs.Screen name='discover' options={{
       tabBarLabel:'Discover',
       tabBarIcon:()=><FontAwesome name="globe" size={22} color="black" />
-      }}/>
+      }}/> */}
     <Tabs.Screen name='profile' options={{
       tabBarLabel:'Profile',
       tabBarIcon:()=><FontAwesome5 name="user" size={20} color="black" />
