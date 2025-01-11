@@ -6,13 +6,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD4FatOH3y2_v7Qrh5tWU4Tv1qpF1nuRBU",
-  authDomain: "travel-genie-bfa10.firebaseapp.com",
-  projectId: "travel-genie-bfa10",
-  storageBucket: "travel-genie-bfa10.firebasestorage.app",
-  messagingSenderId: "196242677831",
-  appId: "1:196242677831:web:cb0972fc4cdee868899162",
-  measurementId: "G-FP4Y7LGLCX"
+  apiKey: "AIzaSyBt2h64t3ixA_JOnqpfopANhNVURNdDwy4",
+  authDomain: "react-native-apps-5603c.firebaseapp.com",
+  projectId: "react-native-apps-5603c",
+  storageBucket: "react-native-apps-5603c.firebasestorage.app",
+  messagingSenderId: "1024160893161",
+  appId: "1:1024160893161:web:72b1905e63dff629d54878",
+  measurementId: "G-90VNYPRH1K"
 };
 
 // Initialize Firebase

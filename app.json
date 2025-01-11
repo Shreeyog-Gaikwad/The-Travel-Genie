@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.shreeyoggaikwad.TheTravelGenie"
     },
     "web": {
       "bundler": "metro",
@@ -48,6 +49,14 @@
           "path": "auth/Login"
         }
       ]
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "87f3304c-a61d-479b-a8ad-cd0e80c4a719"
+      }
     }
   }
 }
