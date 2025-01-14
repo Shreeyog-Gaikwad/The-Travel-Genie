@@ -15,7 +15,7 @@ const _layout = () => {
     {/* <Tabs.Screen name='discover' options={{
       tabBarLabel:'Discover',
       tabBarIcon:()=><FontAwesome name="globe" size={22} color="black" />
-      }}/> */}
+      }}/>  Feature to Add */}
     <Tabs.Screen name='profile' options={{
       tabBarLabel:'Profile',
       tabBarIcon:()=><FontAwesome5 name="user" size={20} color="black" />

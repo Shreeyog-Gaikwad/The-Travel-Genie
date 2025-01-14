@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React , {useContext, useEffect, useState}from 'react'
-import { Video } from 'expo-av'; // Import Video component from expo-av
+import { Video } from 'expo-av'; 
 import {CreateTripContext} from "../../context/TripContext"
 import { AI_PROMPT } from '../../constants/TravelOptions';
 import { useRouter } from 'expo-router';
@@ -43,8 +43,8 @@ const GenerateTrip = () => {
   
           await setDoc(doc(db, "UserTrips", docId), {
               userEmail: user?.email || "Unknown User",
-              tripPlan: tripResp,  //AI Generated Plan
-              tripdata : JSON.stringify(tripData),//User Selection Data
+              tripPlan: tripResp,  
+              tripdata : JSON.stringify(tripData),
               docId: docId
           });
   

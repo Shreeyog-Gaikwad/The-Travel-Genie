@@ -4,7 +4,7 @@ import PlaceCard from './PlaceCard';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 const Planning = ({ plans }) => {
-  const [selectedDay, setSelectedDay] = useState(null); // State to keep track of selected day
+  const [selectedDay, setSelectedDay] = useState(null);
 
   if (!plans || Object.keys(plans).length === 0) {
     return <Text>No itinerary details available</Text>;

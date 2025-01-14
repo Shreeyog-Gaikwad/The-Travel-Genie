@@ -35,7 +35,7 @@ const Profile = () => {
   const handleDeleteAccount = async () => {
     if (user) {
       try {
-        await deleteDoc(doc(firestore, "users", user.uid)); // Replace 'users' with your collection name
+        await deleteDoc(doc(firestore, "users", user.uid)); 
 
         await deleteUser(user);
 

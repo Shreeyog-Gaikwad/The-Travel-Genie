@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from "react-na
 import React, { useContext, useEffect, useState } from "react";
 import { router, useNavigation } from "expo-router";
 import { Calendar } from "react-native-calendars";
-import dayjs from "dayjs"; // Import dayjs for date comparisons
+import dayjs from "dayjs"; 
 import { CreateTripContext } from "../../context/TripContext";
 
 const SelectDates = () => {
@@ -18,12 +18,12 @@ const SelectDates = () => {
     const selectedDate = day.dateString;
 
     if (selectedDate < today) {
-      // Prevent selection of past dates
+ 
       return;
     }
 
     if (!startDate) {
-      // Set the start date
+      
       setStartDate(selectedDate);
       setMarkedDates({
         [selectedDate]: {
@@ -32,10 +32,10 @@ const SelectDates = () => {
         },
       });
     } else if (!endDate && selectedDate > startDate) {
-      // Set the end date if selectedDate is after startDate
+
       setEndDate(selectedDate);
       const range = getDateRange(startDate, selectedDate);
-      const total = range.length; // Directly calculate total days
+      const total = range.length; 
       const newMarkedDates = {};
       range.forEach((date) => {
         newMarkedDates[date] = {
@@ -49,10 +49,9 @@ const SelectDates = () => {
         ...tripData,
         startDate: startDate,
         endDate: selectedDate,
-        totalDays: total, // Use local total variable here
+        totalDays: total,
       });
     } else {
-      // Reset the selection if a date is clicked again
       setStartDate(selectedDate);
       setEndDate(null);
       setMarkedDates({
@@ -91,7 +90,6 @@ const SelectDates = () => {
 
   const handleContinue = () => {
     if (!startDate || !endDate) {
-      // Show toast message if dates are not selected
       ToastAndroid.show("Please select both start and end dates", ToastAndroid.SHORT);
       return;
     }

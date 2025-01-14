@@ -34,7 +34,7 @@ export default function Index() {
     );
   }
 
-  return <View>{!user && <GetStarted />}</View>; // Show GetStarted if no user
+  return <View>{!user && <GetStarted />}</View>; 
 }
 
 const styles = StyleSheet.create({
