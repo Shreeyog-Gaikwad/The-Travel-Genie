@@ -59,9 +59,6 @@ export default function Login() {
     // Signed in 
     const user = userCredential.user;
     console.log(user);
-    if(user){
-      ToastAndroid.show('User Logged In...', ToastAndroid.LONG)
-    }
     router.replace('/mytrip')
     
     // ...

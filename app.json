@@ -4,7 +4,7 @@
     "slug": "TheTravelGenie",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/Logo.png",
+    "icon": "./assets/images/Icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,15 +13,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/Logo.png",
-        "backgroundColor": "white"
+        "foregroundImage": "./assets/images/Icon.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.shreeyoggaikwad.TheTravelGenie"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/Logo.png"
+      "favicon": "./assets/images/Icon.png"
     },
     "plugins": [
       "expo-router",
@@ -32,24 +32,12 @@
           "imageWidth": 300,
           "imageHeight": 300,
           "resizeMode": "contain",
-          "backgroundColor": "white"
+          "backgroundColor": "#ffffff"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "router": {
-      "routes": [
-        {
-          "name": "GetStarted",
-          "path": "/components/GetStarted"
-        },
-        {
-          "name": "Login",
-          "path": "auth/Login"
-        }
-      ]
     },
     "extra": {
       "router": {
@@ -58,6 +46,12 @@
       "eas": {
         "projectId": "87f3304c-a61d-479b-a8ad-cd0e80c4a719"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/87f3304c-a61d-479b-a8ad-cd0e80c4a719"
     }
   }
 }

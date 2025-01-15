@@ -1,11 +1,9 @@
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import { useRouter } from "expo-router";
 import { auth } from "../../config/FirebaseConfig";
 import { signOut, deleteUser } from "firebase/auth";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore"; // For Firestore
-
-
 
 const Profile = () => {
 
@@ -64,7 +62,6 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" translucent={true} />
       <View style={styles.circle}>
         <Image style={styles.circleImg} source={require('../../assets/images/Logo.png')} />
         <Text style={styles.circlTxt}>Travel Genie</Text>

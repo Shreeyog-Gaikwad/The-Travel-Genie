@@ -1,0 +1,35 @@
+{
+  "cli": {
+    "version": ">= 14.4.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_GOOGLE_MAP_KEY": "$EXPO_PUBLIC_GOOGLE_MAP_KEY",
+        "EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY": "$EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY"
+      },
+      "channel": "development"
+    },
+    "production": {
+      "distribution": "internal",
+      "autoIncrement": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_GOOGLE_MAP_KEY": "$EXPO_PUBLIC_GOOGLE_MAP_KEY",
+        "EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY": "$EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY"
+      },
+      "channel": "production"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

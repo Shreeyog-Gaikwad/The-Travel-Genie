@@ -41,9 +41,17 @@ const Planning = ({ plans }) => {
 
             {selectedDay === day && (
               <View>
-                {details.schedule.map((place, index) => (
-                  <PlaceCard place={place} key={index} />
-                ))}
+                {details.schedule ? (
+                  details.schedule.map((place, index) =>
+                    place ? (
+                      <PlaceCard place={place} key={index} />
+                    ) : (
+                        <Text key={index} style={styles.noPlace}></Text>
+                    )
+                  )
+                ) : (
+                  <Text style={styles.noSchedule}>It seams you plan for many day. Just chill around and explore the place.</Text>
+                )}
               </View>
             )}
           </View>
@@ -102,6 +110,21 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 20,
     marginBottom: 20
+  },
+  noPlace: {
+    fontSize: 16,
+    fontFamily : 'outfit-regular',
+    color: 'gray',
+    fontStyle: 'italic',
+    paddingVertical: 5,
+  },
+  noSchedule: {
+    fontSize: 16,
+    color: 'gray',
+    fontFamily : 'outfit-regular',
+    fontStyle: 'italic',
+    paddingVertical: 10,
+    textAlign: 'center',
   },
 });
 

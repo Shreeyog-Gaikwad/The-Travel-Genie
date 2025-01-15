@@ -36,7 +36,7 @@ const MyTrip = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <StatusBar style="dark" translucent={true} />
+      <StatusBar style='dark' translucent={true} />
       <View style={styles.title}>
         <Text style={styles.titleText}>My Trips</Text>
         <TouchableOpacity

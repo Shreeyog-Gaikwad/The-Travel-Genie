@@ -28,7 +28,6 @@ export default function Index() {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <Image style={styles.image} source={require('../assets/images/Logo.png')}/>
         <Text style={styles.txt}>Travel Genie</Text>
       </View>
     );
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   txt: {
-    fontSize: 25,
+    fontSize: 35,
     fontWeight : 'bold',
   }
 
