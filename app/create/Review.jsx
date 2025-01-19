@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View , TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View , TouchableOpacity, ScrollView} from "react-native";
 import { CreateTripContext } from "../../context/TripContext";
 import React, { useContext, useEffect } from "react";
 import { useNavigation, useRouter } from "expo-router";
@@ -27,12 +27,23 @@ const Review = () => {
       <Text style={styles.subtitle}>
         Before generating your trip info, please review your selection
       </Text>
+      <View  style={styles.line}></View>
+
+      <ScrollView showsVerticalScrollIndicator={true}  persistentScrollbar={true}>
 
       <View style={styles.innerContaines}>
-        <Text style={styles.icon}>🌍</Text>
+        <Text style={styles.icon}>🛫</Text>
+        <View>
+          <Text style={styles.heading}>Departure</Text>
+          <Text style={styles.info}>{tripData?.departure?.name}</Text>
+        </View>
+      </View>
+
+      <View style={styles.innerContaines}>
+        <Text style={styles.icon}>🛬</Text>
         <View>
           <Text style={styles.heading}>Destination</Text>
-          <Text style={styles.info}>{tripData?.locationInfo.name}</Text>
+          <Text style={styles.info}>{tripData?.destination?.name}</Text>
         </View>
       </View>
 
@@ -43,11 +54,9 @@ const Review = () => {
           <Text style={styles.info}>
             {moment(tripData?.startDate).format("DD MMM") +
               " To " +
-              moment(tripData?.endDate).format("DD MMM") +
-              " (" +
-              tripData?.totalDays +
-              " Days)"}
+              moment(tripData?.endDate).format("DD MMM")}
           </Text>
+          <Text style={styles.info}>{ "( " + tripData?.totalDays + " Days )"}</Text>
         </View>
       </View>
 
@@ -66,6 +75,9 @@ const Review = () => {
           <Text style={styles.info}>{tripData?.budget}</Text>
         </View>
       </View>
+      </ScrollView>
+
+      <View  style={styles.line}></View>
 
       <TouchableOpacity style={styles.button} onPress={()=>router.replace('/create/GenerateTrip')}>
           <Text style={styles.btntxt}>Plan my Trip</Text>
@@ -95,7 +107,7 @@ const styles = StyleSheet.create({
   innerContaines: {
     display: "flex",
     flexDirection: "row",
-    marginTop: 40,
+    marginTop: 30,
     gap: 25,
     width: '80%'
   },
@@ -124,4 +136,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "outfit-medium",
   },
+  line : {
+    height: 1,
+    backgroundColor: "gray",
+  }
 });

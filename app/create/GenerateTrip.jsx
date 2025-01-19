@@ -22,10 +22,11 @@ const GenerateTrip = () => {
       const GenerateTrip = async () =>{
         setLoading(true);
         const FINAL_PROMPT = AI_PROMPT
-        .replace('{location}', tripData?.locationInfo.name)
+        .replace('{departure}', tripData?.departure?.name)
+        .replace('{destination}', tripData?.destination?.name)
         .replace('{totalDays}', tripData?.totalDays)
         .replace('{totalNight}', tripData?.totalDays - 1)
-        .replace('{traveler}', tripData?.Traveler.name)
+        .replace('{traveler}', tripData?.Traveler?.name)
         .replace('{budget}', tripData?.budget)
         .replace('{totalDays}', tripData?.totalDays)
         .replace('{totalNight}', tripData?.totalDays - 1)

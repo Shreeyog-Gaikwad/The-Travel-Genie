@@ -8,15 +8,11 @@ const HotelDetails = ({ hotels }) => {
     <View style={styles.container}>
       <Text style={styles.title}>
         Hotel Details 🛎️</Text>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        nestedScrollEnabled
-        data={hotels}
-        horizontal={true}
-        renderItem={({ item, index }) => (
-          <HotelCard item={item} index={index} />
-        )}
-      />
+      {hotels?.map((item, index)=>{
+        return(
+          <HotelCard item={item} key={`${item}-${index}`} />
+        )
+      })}
     </View>
   );
 };

@@ -7,18 +7,39 @@ import { useRouter } from "expo-router";
 import { auth, db } from "../../config/FirebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import UserTripList from '../../components/MyTrips/UserTripList'
+import { BackHandler } from "react-native";
+import { useNavigationState , useNavigation} from "@react-navigation/native";
+
+
 
 const MyTrip = () => {
+
   const [userTrips, setUserTrips] = useState([]);
   const router = useRouter();
   const user = auth.currentUser;
-  const[loading,setLoading] =useState(false)
+  const [loading, setLoading] = useState(false)
 
-  useEffect(()=>{
+  const navigation = useNavigation();
+  const isRootScreen = useNavigationState(
+    (state) => state?.routes?.[state.index]?.name === "MyTrip"
+  );
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (isRootScreen) {
+        BackHandler.exitApp(); 
+        return true;
+      }
+    });
+
+    return () => backHandler.remove();
+  }, [isRootScreen, navigation]);
+
+  useEffect(() => {
     user && GetUserTrips();
     console.log(user);
-    
-  },[user])
+
+  }, [user])
 
   const GetUserTrips = async () => {
     setLoading(true);
@@ -29,7 +50,7 @@ const MyTrip = () => {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      setUserTrips(prev=>[...prev, doc.data()]);
+      setUserTrips(prev => [...prev, doc.data()]);
     });
     setLoading(false);
   };
@@ -46,9 +67,9 @@ const MyTrip = () => {
           <MaterialIcons name="add-location-alt" size={30} color="black" />
         </TouchableOpacity>
       </View>
-      
-        {loading && <ActivityIndicator size="large" color="black" />}
-        {userTrips.length === 0 ? <NoTripsScreen /> : <UserTripList userTrips={userTrips}/>}
+
+      {loading && <ActivityIndicator size="large" color="black" />}
+      {userTrips.length === 0 ? <NoTripsScreen /> : <UserTripList userTrips={userTrips} />}
 
     </ScrollView>
   );
@@ -65,12 +86,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20, 
+    marginBottom: 20,
   },
   titleText: {
     fontSize: 35,
     fontFamily: "outfit-bold",
-    marginRight: 10, 
+    marginRight: 10,
   },
   addButton: {
     padding: 5,

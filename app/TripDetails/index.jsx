@@ -39,12 +39,13 @@ const TripDetails = () => {
   return (
     <ScrollView style={styles.container}>
 
-        {formatData(tripDetails?.tripdata)?.locationInfo?.photoRef ? 
-        <Image style={styles.firstImg} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+formatData(tripDetails?.tripdata)?.locationInfo?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
+        {formatData(tripDetails?.tripdata)?.destination?.photoRef ? 
+        <Image style={styles.firstImg} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+formatData(tripDetails?.tripdata)?.destination?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
         <Image source={require('../../assets/images/LoginImage.jpg')} style={styles.firstImg} /> }
 
         <View style={styles.infoContainer}>
-            <Text  style={styles.title}>{tripDetails?.tripPlan?.location}</Text>
+            <Text  style={styles.title1}>{formatData(tripDetails?.tripdata)?.destination?.name}</Text>
+            <Text  style={styles.title2}>From : {formatData(tripDetails?.tripdata)?.departure?.name}</Text>
             <View style={styles.infoView}>
                 <Text style={styles.info}>{moment(formatData(tripDetails?.tripdata)?.startDate).format('DD MMM YYYY')} - </Text>
                 <Text style={styles.info}>{moment(formatData(tripDetails?.tripdata)?.endDate).format('DD MMM YYYY')}</Text>
@@ -82,10 +83,14 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
-    title:{
+    title1:{
         fontSize: 25,
         fontFamily: 'outfit-bold'
     },
+    title2:{
+      fontSize: 18,
+      fontFamily: 'outfit-medium'
+  },
     infoView: {
         display: 'flex',
         flexDirection: 'row',

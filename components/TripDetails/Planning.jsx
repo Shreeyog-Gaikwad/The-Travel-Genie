@@ -41,10 +41,10 @@ const Planning = ({ plans }) => {
 
             {selectedDay === day && (
               <View>
-                {details.schedule ? (
-                  details.schedule.map((place, index) =>
+                {details.activities ? (
+                  details.activities.map((place, index) =>
                     place ? (
-                      <PlaceCard place={place} key={index} />
+                      <PlaceCard place={place} key={`${place}-${index}`} />
                     ) : (
                         <Text key={index} style={styles.noPlace}></Text>
                     )

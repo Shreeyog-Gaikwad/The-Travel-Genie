@@ -13,13 +13,15 @@ const UserTripList = ({userTrips}) => {
     <View style={styles.container}>
       <View style={styles.firstContainer}>
 
-        {LatestTrip?.locationInfo?.photoRef ? 
-        <Image style={styles.firstImg} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+LatestTrip?.locationInfo?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
+        {LatestTrip?.destination?.photoRef ? 
+        <Image style={styles.firstImg} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+LatestTrip?.destination?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
         <Image source={require('../../assets/images/LoginImage.jpg')} style={styles.firstImg} /> }
 
         <View style={styles.firstView}>
-            <Text style={styles.title}>{userTrips[userTrips.length - 1]?.tripPlan?.location}</Text>
-            <Text style={styles.info}>{moment(LatestTrip.startDate).format('DD MMM YYYY')}       ✈️ {LatestTrip?.Traveler?.name}</Text>
+            <Text style={styles.title1}>{userTrips[userTrips.length - 1]?.tripPlan?.tripDetails?.destinationCity}</Text>
+            <Text style={styles.title2}>From : {userTrips[userTrips.length - 1]?.tripPlan?.tripDetails?.departureCity}</Text>
+            <Text style={styles.info}>{moment(LatestTrip.startDate).format('DD MMM YYYY')} - {moment(LatestTrip.endDate).format('DD MMM YYYY')}</Text>
+            <Text style={styles.info}>{LatestTrip?.Traveler?.icon} {LatestTrip?.Traveler?.name}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={()=>router.push({pathname:'/TripDetails', params:{
           trip: JSON.stringify(userTrips[userTrips.length - 1])
@@ -36,8 +38,6 @@ const UserTripList = ({userTrips}) => {
       {userTrips.slice().filter((_, index) => index !== userTrips.length - 1).reverse().map((trips,index)=>(
           <UserTripCard  key={trips.docId || index} trip={trips} />
       ))}
- 
-     
     </View>
   )
 }
@@ -60,8 +60,12 @@ const styles = StyleSheet.create({
     firstView:{
       paddingLeft: 5
     },
-    title:{
+    title1:{
       fontSize: 25,
+      fontFamily: 'outfit-medium'
+    },
+    title2:{
+      fontSize: 18,
       fontFamily: 'outfit-medium'
     },
     info:{

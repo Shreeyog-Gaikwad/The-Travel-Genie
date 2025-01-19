@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid } from "react-na
 import React, { useContext, useEffect, useState } from "react";
 import { router, useNavigation } from "expo-router";
 import { Calendar } from "react-native-calendars";
-import dayjs from "dayjs"; 
+import dayjs from "dayjs";
 import { CreateTripContext } from "../../context/TripContext";
 
 const SelectDates = () => {
@@ -18,12 +18,11 @@ const SelectDates = () => {
     const selectedDate = day.dateString;
 
     if (selectedDate < today) {
- 
+      ToastAndroid.show("Cannot select past dates", ToastAndroid.SHORT);
       return;
     }
 
     if (!startDate) {
-      
       setStartDate(selectedDate);
       setMarkedDates({
         [selectedDate]: {
@@ -32,10 +31,14 @@ const SelectDates = () => {
         },
       });
     } else if (!endDate && selectedDate > startDate) {
-
-      setEndDate(selectedDate);
       const range = getDateRange(startDate, selectedDate);
-      const total = range.length; 
+      const total = range.length;
+
+      if (total > 10) {
+        ToastAndroid.show("Trip can be generated upto 10 Days", ToastAndroid.SHORT);
+        return;
+      }
+
       const newMarkedDates = {};
       range.forEach((date) => {
         newMarkedDates[date] = {
@@ -44,7 +47,9 @@ const SelectDates = () => {
         };
       });
 
+      setEndDate(selectedDate);
       setMarkedDates(newMarkedDates);
+
       setTripData({
         ...tripData,
         startDate: startDate,
@@ -90,15 +95,14 @@ const SelectDates = () => {
 
   const handleContinue = () => {
     if (!startDate || !endDate) {
-      ToastAndroid.show("Please select both start and end dates", ToastAndroid.SHORT);
+      ToastAndroid.show(
+        "Please select both start and end dates",
+        ToastAndroid.SHORT
+      );
       return;
     }
     router.push("/create/SelectBudget");
   };
-
- 
-
-  
 
   return (
     <View style={styles.container}>
@@ -108,7 +112,7 @@ const SelectDates = () => {
         <Calendar
           onDayPress={onDayPress}
           markedDates={markedDates}
-          minDate={today} 
+          minDate={today}
           theme={{
             monthTextColor: "black",
             arrowColor: "gray",
@@ -117,10 +121,7 @@ const SelectDates = () => {
         />
       </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleContinue}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleContinue}>
         <Text style={styles.btntxt}>Continue</Text>
       </TouchableOpacity>
     </View>

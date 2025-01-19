@@ -20,14 +20,14 @@ const UserTripCard = ({trip}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={()=>router.push({pathname:'/TripDetails', params:{trip: JSON.stringify(trip) }})}>
         
-        {formatData(trip?.tripdata)?.locationInfo?.photoRef ? 
-        <Image  style={styles.image} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+formatData(trip?.tripdata)?.locationInfo?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
+        {formatData(trip?.tripdata)?.destination?.photoRef ? 
+        <Image  style={styles.image} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+formatData(trip?.tripdata)?.destination?.photoRef+'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}} /> : 
         <Image source={require('../../assets/images/LoginImage.jpg')} style={styles.image} />}
 
         <View style={styles.info}>
-            <Text style={styles.title}>{trip?.tripPlan?.location}</Text>
-            <Text style={styles.subtitle}>{moment(formatData(trip?.tripdata)?.startDate).format('DD MMM YYYY')}</Text>
-            <Text style={styles.subtitle}>Travelling : {formatData(trip?.tripdata)?.Traveler?.name}</Text>
+            <Text style={styles.title}>{trip?.tripPlan?.tripDetails?.destinationCity}</Text>
+            <Text style={styles.subtitle}>{moment(formatData(trip?.tripdata)?.startDate).format('DD MMM')} - {moment(formatData(trip?.tripdata)?.endDate).format('DD MMM YYYY')}</Text>
+            <Text style={styles.subtitle2}>{formatData(trip?.tripdata)?.Traveler?.icon} {formatData(trip?.tripdata)?.Traveler?.name}</Text>
         </View>
         <View  style={styles.arrow}>
             <AntDesign name="caretright" size={24} color="black" />
@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: 'outfit-regular',
         color: 'gray'
+    },
+    subtitle2: {
+        fontFamily: 'outfit-regular',
+        color: 'gray',
+        marginTop: 2,
+        marginLeft:-3,
     },
     arrow: {
         justifyContent: 'center'

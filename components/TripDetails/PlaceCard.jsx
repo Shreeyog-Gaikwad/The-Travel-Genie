@@ -10,6 +10,10 @@ const PlaceCard = ({ place }) => {
   const [Photoref, setPhotoRef] = useState();
 
   useEffect(() => {
+    console.log("Place Data: ", place);
+  }, [place]);
+
+  useEffect(() => {
     GetGooglePhotoRef();
   }, [])
 
@@ -25,17 +29,16 @@ const PlaceCard = ({ place }) => {
 
   return (
     <View style={styles.info}>
-      {place?.placeImageURL ?
+      {place?.imageUrl && Photoref ?
         <Image style={styles.image}
           source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' + Photoref + '&key=' + process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY }}
         /> : null}
       <View style={styles.infoContainer}>
-        <Text style={styles.activity}>{place?.activity}</Text>
-        <Text style={styles.details}>{place?.details}</Text>
+        <Text style={styles.activity}>{place?.placeName}</Text>
+        <Text style={styles.details}>{place?.placeDetails}</Text>
         <View style={styles.navi}>
           <View style={styles.naviinfo}>
-            <Text style={styles.time}>🕒 Time : <Text style={styles.bold} >{place?.time}</Text></Text>
-            <Text style={styles.duration}>⏳ Duration : <Text style={styles.bold}>{place?.duration}</Text></Text>
+            <Text style={styles.time}>📍 Location : <Text style={styles.bold} >{place?.travelTime}</Text></Text>
             {place?.ticketPricing ? <Text style={styles.ticket}>🎟️ Ticket Price : <Text style={styles.bold}>{place?.ticketPricing}</Text></Text> : null}
           </View>
 
